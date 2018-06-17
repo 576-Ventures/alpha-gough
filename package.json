@@ -1,0 +1,8 @@
+{
+  "name": "alpha-gough",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:576-Ventures/alpha-gough.git",
+  "author": "Alex Hutchison <alex.hutchison@nio.io>",
+  "license": "MIT"
+}
