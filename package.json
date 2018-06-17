@@ -9,6 +9,8 @@
     "test": "mocha"
   },
   "devDependencies": {
+    "babel-eslint": "8",
+    "eslint": "4.x",
     "mocha": "^5.2.0"
   }
 }
