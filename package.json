@@ -1,9 +1,23 @@
 {
   "name": "alpha-gough",
-  "version": "1.0.0",
+  "engines": {
+    "node": ">= 8.0.0"
+  },
+  "version": "0.0.1",
   "main": "index.js",
   "repository": "git@github.com:576-Ventures/alpha-gough.git",
-  "author": "Alex Hutchison <alex.hutchison@nio.io>",
+  "author": "576-Ventures",
+  "private": true,
+  "contributors": [
+    {
+      "name": "Alex Hutchison",
+      "email": "alex.hutchison@nio.io"
+    },
+    {
+      "name": "sndsgn",
+      "email": "bestnotwriteme@checkyoselfbeforeyouriggidywreckyoself.xyz"
+    }
+  ],
   "license": "MIT",
   "scripts": {
     "test": "mocha"
@@ -12,5 +26,17 @@
     "babel-eslint": "8",
     "eslint": "4.x",
     "mocha": "^5.2.0"
+  },
+  "dependencies": {
+    "boardgame.io": "^0.23.2",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
+    "react-scripts": "1.1.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "mocha test --exit",
+    "eject": "react-scripts eject"
   }
 }
