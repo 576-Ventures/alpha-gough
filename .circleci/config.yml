@@ -26,7 +26,8 @@ jobs:
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
-      - run: yarn install --ignore-engines
+      - run: yarn install
+      - run: yarn global add mocha
 
       - save_cache:
           paths:
@@ -34,5 +35,4 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       # run tests!
-      - run: yarn global add mocha
       - run: mocha test --exit
