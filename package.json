@@ -1,5 +1,8 @@
 {
   "name": "alpha-gough",
+  "engines": {
+    "node": ">= 8.0.0"
+  },
   "version": "0.0.1",
   "main": "index.js",
   "repository": "git@github.com:576-Ventures/alpha-gough.git",
