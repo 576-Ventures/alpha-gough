@@ -19,22 +19,22 @@
     }
   ],
   "license": "MIT",
-  "scripts": {
-    "test": "mocha"
-  },
   "devDependencies": {
-    "babel-eslint": "8",
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^7.2",
+    "babel-preset-zero": "^0.2.0",
     "eslint": "4.x",
     "mocha": "^5.2.0"
   },
   "dependencies": {
-    "boardgame.io": "^0.23.2",
+    "boardgame.io": "^0.24.0",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-scripts": "1.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
+    "start-socket": "npx babel-node --presets zero src/server.js",
     "build": "react-scripts build",
     "test": "mocha test --exit",
     "eject": "react-scripts eject"
