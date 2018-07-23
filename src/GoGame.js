@@ -9,7 +9,8 @@ function IsDraw(cells, G) {
   return G.cells.filter(c => c === null).length === 0;
 }
 
-const GoGame = Game({
+export const GoGame = Game({
+  name: 'go-game',
   setup: () => ({ cells: Array(19).fill(null) }),
 
   moves: {
@@ -35,5 +36,3 @@ const GoGame = Game({
     movesPerTurn: 1,
   },
 });
-
-export default GoGame;

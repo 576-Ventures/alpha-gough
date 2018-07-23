@@ -1,9 +1,11 @@
+import React from 'react';
 import { AI } from 'boardgame.io/ai';
 import { Client } from 'boardgame.io/react';
 import Board from './Board.jsx';
-import GoGame from './GoGame.js'; 
 
-const App = Client({
+import { GoGame } from './GoGame.js';
+
+const GoGameClient = Client({
   ai: AI({
     enumerate: (G, ctx) => {
       let moves = [];
@@ -17,8 +19,16 @@ const App = Client({
   }),
   board: Board,
   game: GoGame,
-  multiplayer: true,
+  multiplayer: { server: 'localhost:8000' },
+  debug: true,
 });
+
+const App = () => (
+  <div>
+    <GoGameClient playerID="0" />
+    <GoGameClient playerID="1" />
+  </div>
+);
 
 export default App;
 
