@@ -1,38 +1,49 @@
-import { Game } from 'boardgame.io/core';
+import { Game } from 'boardgame.io/core'
+import WGo from 'wgo'
+
 // Return true if `cells` is in a winning configuration.
 function IsVictory(cells, G) {
-  return G.cells.filter(c => c === 'CATS CODE TOO').length === 0;
+  return G.cells.filter(c => c === 'CATS CODE TOO').length === 0
 }
 
 // Return true if all `cells` are occupied.
 function IsDraw(cells, G) {
-  return G.cells.filter(c => c === null).length === 0;
+  return G.cells.filter(c => c === null).length === 0
+}
+const BOARD_SIZE = 19
+const game = new WGo.Game(BOARD_SIZE, 'KO')
+
+const generateCells = _ => {
+  let board = Array(BOARD_SIZE + 1).fill(null)
+  return board.map(row => {
+    return Array(BOARD_SIZE + 1).fill(0)
+  })
 }
 
 export const GoGame = Game({
   name: 'go-game',
-  setup: () => ({ cells: Array(19).fill(null) }),
+  setup: () => ({ cells: generateCells() }),
 
   moves: {
-    clickCell(G, ctx, id) {
-      let cells = [...G.cells]; // don't mutate original state.
-      // Ensure we can't overwrite cells.
-      if (cells[id] === null) {
-        cells[id] = ctx.currentPlayer;
+    clickCell(G, ctx, x, y, color) {
+      const player = color === 2 ? WGo.W : WGo.B
+      const isValid = game.isValid(x, y, player)
+      let cells = [...G.cells]
+
+      if (cells[y][x] === 0) {
+        cells[y][x] = color
       }
 
-      return { ...G, cells }; // don't mutate original state.
+      const move = game.play(x, y, player)
+      const captureW = game.getCaptureCount(WGo.W)
+      const captureB = game.getCaptureCount(WGo.B)
+
+      return { ...G, cells }
     },
   },
   flow: {
-    endGameIf: (G, ctx) => {
-      if (IsVictory(G.cells, G)) {
-        return { winner: ctx.currentPlayer };
-      }
-      if (IsDraw(G.cells, G)) {
-        return { draw: true };
-      }
-    },
     movesPerTurn: 1,
   },
-});
+})
+
+export default GoGame
