@@ -11,47 +11,26 @@ import SocialLoginButton from './SocialLoginButton';
 import { login } from './actions/auth';
 import styles from './styles/LoginForm.js';
 
-class LoginForm extends React.PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.handleLogin = this.handleLogin.bind(this);
-    this.handleLoginFailure = this.handleLoginFailure.bind(this);
-  }
-
-  handleLogin(user) {
-    this.props.onLogin(user);
-  }
-
-  handleLoginFailure(err) {
-    console.error(err)
-  }
-
-  render() {
-    const { classes } = this.props;
-
-    return (
-      <div>    
-        <FormGroup className={classes.loginForm}>
-          <h1 className={classes.header}>Go Game</h1>
-          <img alt="go-game" className={classes.image} src={gogame} />
-          <FormControl>
-            <SocialLoginButton
-              appId={process.env.REACT_APP_facebookAppId}
-              className={classes.facebookLoginButton}
-              onLoginFailure={this.handleLoginFailure}
-              onLoginSuccess={this.handleLogin}
-              provider='facebook'
-            >
-              <img alt="Login to Go Game World with Facebook" className={classes.facebookImage} src={facebook} />
-              <span className={classes.facebookLoginButtonText}>Login with Facebook</span>
-            </SocialLoginButton>
-          </FormControl>
-        </FormGroup>
-      </div>
-    );
-  }
-};
+const LoginForm = ({ classes, onLogin }) => (
+  <div>
+    <FormGroup className={classes.loginForm}>
+      <h1 className={classes.header}>Go Game</h1>
+      <img alt="go-game" className={classes.image} src={gogame} />
+      <FormControl>
+        <SocialLoginButton
+          appId={process.env.REACT_APP_facebookAppId}
+          className={classes.facebookLoginButton}
+          onLoginFailure={console.err}
+          onLoginSuccess={onLogin}
+          provider='facebook'
+        >
+          <img alt="Login to Go Game World with Facebook" className={classes.facebookImage} src={facebook} />
+          <span className={classes.facebookLoginButtonText}>Login with Facebook</span>
+        </SocialLoginButton>
+      </FormControl>
+    </FormGroup>
+  </div>
+);
 
 LoginForm.propTypes = {
   classes: PropTypes.object.isRequired,
