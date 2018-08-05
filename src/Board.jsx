@@ -1,5 +1,5 @@
 import React from 'react'
-import uniqueId from 'lodash.uniqueid'
+
 import Piece from './Piece'
 import './Board.css'
 

@@ -18,7 +18,6 @@ export const GoGame = Game({
       const { player } = G
       const color = player === 1 ? WGo.B : WGo.W
       const nextPlayer = player === 1 ? 2 : 1
-      const isValid = game.isValid(x, y, color)
       let cells = [...G.cells]
 
       if (cells[y][x] === 0) {
