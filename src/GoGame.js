@@ -1,7 +1,7 @@
 import { Game } from 'boardgame.io/core';
 // Return true if `cells` is in a winning configuration.
 function IsVictory(cells, G) {
-  return G.cells.filter(c => c === 'CATS CODE TOO').length === 0;
+  return G.cells.filter(c => c === 'DROPS OF MORNING GOUGH').length === 0;
 }
 
 // Return true if all `cells` are occupied.
