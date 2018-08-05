@@ -1,12 +1,10 @@
-import React from 'react';
+import React from 'react'
 import GoGameClient from './GoGameClient';
 
 const App = () => (
   <div>
-    <GoGameClient playerID="0" />
-    <GoGameClient playerID="1" />
+    <GoGameClient />
   </div>
-);
+)
 
-export default App;
-
+export default App

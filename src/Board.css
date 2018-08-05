@@ -1,0 +1,48 @@
+.container {
+  display: grid;
+  grid-column-gap: 0;
+}
+
+.board {
+  grid-template-columns: repeat(18, 5.55% [col-start]);
+  position: absolute;
+  width: 864px;
+  height: 864px;
+  top: 24px;
+  left: 24px;
+  z-index: -1;
+}
+
+.buttons {
+  grid-template-columns: repeat(19, 5.26% [col-start]);
+  width: 912px;
+  height: 912px;
+}
+
+.cell {
+  border: 1px solid hsl(0, 0%, 80%);
+}
+
+.piece {
+  border: none;
+  outline: none;
+  padding: 0;
+  height: 48px;
+  width: 48px;
+  background: none;
+}
+
+.circle {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.black {
+  background: hsl(0, 0%, 20%);
+}
+
+.white {
+  background: radial-gradient(hsl(0, 0%, 100%) 30%, hsl(0, 0%, 90%));
+}

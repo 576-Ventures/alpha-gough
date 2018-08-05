@@ -1,62 +1,41 @@
-import React from 'react';
+import React from 'react'
 
-class Board extends React.Component {
-  onClick(id) {
-    if (this.isActive(id)) {
-      this.props.moves.clickCell(id);
-      this.props.events.endTurn();
-    }
+import Piece from './Piece'
+import './Board.css'
+
+export default ({ G, ctx, moves, events }) => {
+  const recordMove = (x, y) => {
+    moves.clickCell(x, y)
+    events.endTurn()
   }
 
-  isActive(id) {
-    if (!this.props.isActive) return false;
-    if (this.props.G.cells[id] !== null) return false;
-    return true;
-  }
-
-  render() {
-    const { ctx, G } = this.props;
-    let winner = '';
-    if (ctx.gameover) {
-      winner =
-        ctx.gameover.winner !== undefined ? (
-          <div id="winner">Winner: {ctx.gameover.winner}</div>
-        ) : (
-          <div id="winner">Draw!</div>
-        );
-    }
-
-    const cellStyle = {
-      border: '1px solid #555',
-      width: '40px',
-      height: '40px',
-      lineHeight: '40px',
-      textAlign: 'center',
-    };
-
-    let tbody = [];
-    for (let i = 0; i < G.cells.length; i++) {
-      let cells = [];
-      for (let j = 0; j < G.cells.length; j++) {
-        const id = G.cells.length * i + j;
-        cells.push(
-          <td style={cellStyle} key={id} onClick={() => this.onClick(id)}>
-            {G.cells[id]}
-          </td>
-        );
+  const buildGrid = _ => {
+    let board = []
+    const len = G.boardSize - 1
+    for (let i = 0; i < len; i++) {
+      for (let j = 0; j < len; j++) {
+        board = [...board, <div className="cell" key={`grid__row${j}-col${i}}`} />]
       }
-      tbody.push(<tr key={i}>{cells}</tr>);
     }
-
-    return (
-      <div>
-        <table id="board">
-          <tbody>{tbody}</tbody>
-        </table>
-        {winner}
-      </div>
-    );
+    return board
   }
-}
 
-export default Board; 
+  const buildButtons = _ => {
+    let board = []
+    const len = G.cells.length
+    for (let i = 0; i < len; i++) {
+      for (let j = 0; j < len; j++) {
+        const cellState = G.cells[i][j]
+        board = [...board, <Piece x={j} y={i} key={`row${j}-col${i}}`} recordMove={recordMove} value={cellState} />]
+      }
+    }
+    return board
+  }
+
+  return (
+    <div>
+      <div className="container board">{buildGrid()}</div>
+      <div className="container buttons">{buildButtons()}</div>
+    </div>
+  )
+}
