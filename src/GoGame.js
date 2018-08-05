@@ -1,44 +1,41 @@
 import { Game } from 'boardgame.io/core'
 import WGo from 'wgo'
 
-// Return true if `cells` is in a winning configuration.
-function IsVictory(cells, G) {
-  return G.cells.filter(c => c === 'CATS CODE TOO').length === 0
-}
-
-// Return true if all `cells` are occupied.
-function IsDraw(cells, G) {
-  return G.cells.filter(c => c === null).length === 0
-}
 const BOARD_SIZE = 19
 const game = new WGo.Game(BOARD_SIZE, 'KO')
 
-const generateCells = _ => {
-  let board = Array(BOARD_SIZE + 1).fill(null)
-  return board.map(row => {
-    return Array(BOARD_SIZE + 1).fill(0)
-  })
-}
+const generateCells = _ =>
+  Array(BOARD_SIZE)
+    .fill(null)
+    .map(row => Array(BOARD_SIZE).fill(0))
 
 export const GoGame = Game({
   name: 'go-game',
-  setup: () => ({ cells: generateCells() }),
+  setup: () => ({ cells: generateCells(), boardSize: 19, player: 1 }),
 
   moves: {
-    clickCell(G, ctx, x, y, color) {
-      const player = color === 2 ? WGo.W : WGo.B
-      const isValid = game.isValid(x, y, player)
+    clickCell(G, ctx, x, y) {
+      const { player } = G
+      const color = player === 1 ? WGo.B : WGo.W
+      const nextPlayer = player === 1 ? 2 : 1
+      const isValid = game.isValid(x, y, color)
       let cells = [...G.cells]
 
       if (cells[y][x] === 0) {
-        cells[y][x] = color
+        cells[y][x] = player
       }
 
-      const move = game.play(x, y, player)
-      const captureW = game.getCaptureCount(WGo.W)
-      const captureB = game.getCaptureCount(WGo.B)
+      const move = game.play(x, y, color)
+      if (Array.isArray(move)) {
+        for (let coords of move) {
+          cells[coords.y][coords.x] = 0
+        }
+      }
 
-      return { ...G, cells }
+      const capturedW = game.getCaptureCount(WGo.W)
+      const capturedB = game.getCaptureCount(WGo.B)
+
+      return { ...G, cells, capturedW, capturedB, player: nextPlayer }
     },
   },
   flow: {

@@ -4,19 +4,19 @@
 }
 
 .board {
-  grid-template-columns: repeat(19, 5.26% [col-start]);
+  grid-template-columns: repeat(18, 5.55% [col-start]);
   position: absolute;
-  width: 912px;
-  height: 912px;
+  width: 864px;
+  height: 864px;
   top: 24px;
   left: 24px;
   z-index: -1;
 }
 
 .buttons {
-  grid-template-columns: repeat(20, 5% [col-start]);
-  width: 960px;
-  height: 960px;
+  grid-template-columns: repeat(19, 5.26% [col-start]);
+  width: 912px;
+  height: 912px;
 }
 
 .cell {

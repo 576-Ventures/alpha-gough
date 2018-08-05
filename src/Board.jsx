@@ -3,61 +3,39 @@ import uniqueId from 'lodash.uniqueid'
 import Piece from './Piece'
 import './Board.css'
 
-class Board extends React.Component {
-  state = {
-    current: 1,
-    boardSize: 19,
+export default ({ G, ctx, moves, events }) => {
+  const recordMove = (x, y) => {
+    moves.clickCell(x, y)
+    events.endTurn()
   }
 
-  buildBoard = _ => {
-    const { ctx, G } = this.props
-    const { boardSize } = this.state
+  const buildGrid = _ => {
     let board = []
-    for (let i = 0; i < boardSize; i++) {
-      for (let j = 0; j < boardSize; j++) {
+    const len = G.boardSize - 1
+    for (let i = 0; i < len; i++) {
+      for (let j = 0; j < len; j++) {
         board = [...board, <div className="cell" key={`grid__row${j}-col${i}}`} />]
       }
     }
     return board
   }
 
-  buildButtons = _ => {
-    const { ctx, G } = this.props
+  const buildButtons = _ => {
     let board = []
-    for (let i = 0; i < G.cells.length; i++) {
-      for (let j = 0; j < G.cells[i].length; j++) {
-        board = [
-          ...board,
-          <Piece x={j} y={i} key={`row${j}-col${i}}`} handleClick={this.handleClick} current={this.state.current} />,
-        ]
+    const len = G.cells.length
+    for (let i = 0; i < len; i++) {
+      for (let j = 0; j < len; j++) {
+        const cellState = G.cells[i][j]
+        board = [...board, <Piece x={j} y={i} key={`row${j}-col${i}}`} recordMove={recordMove} value={cellState} />]
       }
     }
     return board
   }
 
-  handleClick = (x, y) => {
-    const { current } = this.state
-    const { moves, events } = this.props
-
-    if (current === 2) {
-      this.setState({ current: 1 })
-    }
-
-    if (current === 1) {
-      this.setState({ current: 2 })
-    }
-    moves.clickCell(x, y, current)
-    events.endTurn()
-  }
-
-  render() {
-    return (
-      <div>
-        <div className="container board">{this.buildBoard()}</div>
-        <div className="container buttons">{this.buildButtons()}</div>
-      </div>
-    )
-  }
+  return (
+    <div>
+      <div className="container board">{buildGrid()}</div>
+      <div className="container buttons">{buildButtons()}</div>
+    </div>
+  )
 }
-
-export default Board
